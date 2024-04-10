@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import './input-imagen.js'; // Asegúrate de ajustar la ruta al componente
+import '../../components/input-con-imagen/input-imagen.js'; // Asegúrate de ajustar la ruta al componente
 
 class PaginaLogin extends LitElement {
   static styles = css`
@@ -30,8 +30,8 @@ class PaginaLogin extends LitElement {
   render() {
     return html`
       <div class="login-container">
-        <input-imagen type="text" placeholder="Nombre de usuario" src="../../components/images/usuario.png" alt="Usuario"></input-imagen>
-        <input-imagen type="password" placeholder="Contraseña" src="../../components/images/asterisco.png" alt="Contraseña"></input-imagen>
+        <input-imagen type="text" placeholder="Nombre de usuario" src="../../../src/components/images/usuario.png" alt="Usuario"></input-imagen>
+        <input-imagen type="password" placeholder="Contraseña" src="../../../src/components/images/asterisco.png" alt="Contraseña"></input-imagen>
         <button @click="${this._onLogin}">Iniciar sesión</button>
       </div>
     `;

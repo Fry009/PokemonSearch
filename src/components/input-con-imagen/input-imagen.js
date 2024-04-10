@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css } from "lit";
 
 class InputConImagen extends LitElement {
   static styles = css`
@@ -24,24 +24,26 @@ class InputConImagen extends LitElement {
   static properties = {
     src: { type: String }, // URL de la imagen
     alt: { type: String }, // Texto alternativo para la imagen
-    placeholder: {type: String} // Texto para el placeholder
+    placeholder: { type: String }, // Texto para el placeholder
+    type: { type: String },
   };
 
   constructor() {
     super();
-    this.src = ''; // Inicializa src como un string vacío
-    this.alt = ''; // Inicializa alt como un string vacío
-    this.placeholder = '' // Inicializa placeholder como un string vacio
+    this.src = ""; // Inicializa src como un string vacío
+    this.alt = ""; // Inicializa alt como un string vacío
+    this.placeholder = ""; // Inicializa placeholder como un string vacio
+    this.type = "hidden" | "text" | "search" | "tel" | "url" | "email" | "password" | "datetime" | "date" | "month" | "week" | "time" | "datetime-local" | "number" | "range" | "color" | "checkbox" | "radio" | "file" | "submit" | "image" | "reset" | "button" ; // el tipo de input por defecto es 'text'
   }
 
   render() {
     return html`
       <div class="input-container">
-        <input type="text" placeholder = ${this.placeholder}/>
+        <input type=${this.type} placeholder=${this.placeholder} />
         <img src=${this.src} alt=${this.alt} />
       </div>
     `;
   }
 }
 
-customElements.define('input-imagen', InputConImagen);
+customElements.define("input-imagen", InputConImagen);

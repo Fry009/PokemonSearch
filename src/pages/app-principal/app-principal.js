@@ -17,12 +17,12 @@ class AppPrincipal extends LitElement {
     return html`
       ${this.estaAutenticado
         ? html`<pokemon-search></pokemon-search>` // Asegúrate de que este componente esté definido
-        : html`<pagina-login @login-success="${this._manejarLoginExitoso}"></pagina-login>`
+        : html`<pagina-login @login-success="${this._manejadorLoginExitoso}"></pagina-login>`
       }
     `;
   }
 
-  _manejarLoginExitoso() {
+  _manejadorLoginExitoso() {
     this.estaAutenticado = true;
   }
 }

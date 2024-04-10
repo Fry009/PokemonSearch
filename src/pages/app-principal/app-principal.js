@@ -23,6 +23,7 @@ class AppPrincipal extends LitElement {
   }
 
   _manejadorLoginExitoso() {
+    debugger;
     this.estaAutenticado = true;
   }
 }

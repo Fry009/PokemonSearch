@@ -39,10 +39,18 @@ class InputConImagen extends LitElement {
   render() {
     return html`
       <div class="input-container">
-        <input type=${this.type} placeholder=${this.placeholder} />
+        <input type=${this.type} placeholder=${this.placeholder} @input=${this._onInput} />
         <img src=${this.src} alt=${this.alt} />
       </div>
     `;
+  }
+  _onInput(event){
+    this.value = event.target.value;
+    this.dispatchEvent(new CustomEvent('input-imagen-change', { 
+      detail: { value: this.value }, 
+      bubbles: true, 
+      composed: true 
+    }));
   }
 }
 

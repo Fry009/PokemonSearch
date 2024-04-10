@@ -25,7 +25,24 @@ class PaginaLogin extends LitElement {
     button:hover {
       background-color: #0056b3;
     }
+    .error {
+      margin-top: 20px;
+      color: red;
+    }
   `;
+
+static properties = {
+    username: { type: String },
+    password: { type: String },
+    errorMsg: { type: String }
+  };
+
+  constructor() {
+    super();
+    this.username = '';
+    this.password = '';
+    this.errorMsg = '';
+  }
 
   render() {
     return html`
@@ -33,13 +50,21 @@ class PaginaLogin extends LitElement {
         <input-imagen type="text" placeholder="Nombre de usuario" src="../../../src/components/images/usuario.png" alt="Usuario"></input-imagen>
         <input-imagen type="password" placeholder="Contraseña" src="../../../src/components/images/asterisco.png" alt="Contraseña"></input-imagen>
         <button @click="${this._onLogin}">Iniciar sesión</button>
+        ${this.errorMsg ? html`<div class="error">${this.errorMsg}</div>` : ''}
       </div>
     `;
   }
 
   _onLogin() {
-    console.log('Intento de inicio de sesión');
-    // Aquí iría la lógica de autenticación
+    if (this.username === 'guest' && this.password === 'guest') {
+        // Aquí se debería implementar la lógica para "navegar" al componente pokemon-search
+        console.log('Credenciales correctas, navegando a Pokémon Search...');
+        // Por ejemplo, puedes emitir un evento personalizado o cambiar la página de manera programática
+        this.dispatchEvent(new CustomEvent('login-success', { bubbles: true, composed: true }));
+        this.errorMsg = '';
+      } else {
+        this.errorMsg = 'Usuario/contraseña son incorrectos.';
+      }
   }
 }
 

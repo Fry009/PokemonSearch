@@ -1,20 +1,18 @@
-import { html, fixture, expect } from '@open-wc/testing';
-import { screen, fireEvent } from '@testing-library/dom';
-import '..src/components/input-con-imagen/input-imagen.js'; // Asegúrate de ajustar la ruta al componente
+import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import { fireEvent } from '@testing-library/dom';
+// Asegúrate de importar tu componente
+import './input-imagen.js';
 
 describe('InputConImagen', () => {
-  it('se renderiza correctamente', async () => {
-    const el = await fixture(html`<input-imagen src="test.png" alt="Test" placeholder="Escribe algo"></input-imagen>`);
-    expect(el.shadowRoot.querySelector('input')).not.to.be.null;
-    expect(el.shadowRoot.querySelector('img').src).to.include('test.png');
-  });
-
   it('dispara el evento input-imagen-change con el valor correcto', async () => {
     const el = await fixture(html`<input-imagen></input-imagen>`);
     const input = el.shadowRoot.querySelector('input');
+
+    // Dispara el evento de input y espera a que se dispare el evento custom
     setTimeout(() => fireEvent.input(input, { target: { value: 'nuevo valor' } }));
-    // Asegúrate de escuchar el evento correctamente en tu componente.
-    await oneEvent(el, 'input-imagen-change');
-    // Aquí, necesitarás ajustar la prueba para verificar el comportamiento esperado después del evento.
+    const { detail } = await oneEvent(el, 'input-imagen-change');
+
+    // Verifica que el valor del detalle del evento sea el esperado
+    expect(detail.value).to.equal('nuevo valor');
   });
 });

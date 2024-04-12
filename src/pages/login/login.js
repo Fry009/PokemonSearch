@@ -50,7 +50,7 @@ class PaginaLogin extends LitElement {
         <input-imagen
           type="text"
           placeholder="Nombre de usuario"
-          src="ruta/a/icono/usuario.png"
+          src="../../components/images/usuario.png"
           alt="Usuario"
           @input-imagen-change="${(e) => (this.username = e.detail.value)}"
         >
@@ -58,7 +58,7 @@ class PaginaLogin extends LitElement {
         <input-imagen
           type="password"
           placeholder="Contraseña"
-          src="ruta/a/icono/password.png"
+          src="../../../components/images/asterisco.png"
           alt="Contraseña"
           @input-imagen-change="${(e) => (this.password = e.detail.value)}"
         >

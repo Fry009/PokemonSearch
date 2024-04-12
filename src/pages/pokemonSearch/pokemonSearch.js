@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import './pokemon-detail.js'; // Asegúrate de ajustar la ruta al componente
+import '../../components/pokemon-detail/pokemon-detail.js'; // Asegúrate de ajustar la ruta al componente
 
 class PokemonSearch extends LitElement {
   static styles = css`

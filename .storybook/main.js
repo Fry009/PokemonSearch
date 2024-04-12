@@ -8,6 +8,7 @@ const config = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
+    "@storybook/addon-mdx-gfm"
   ],
   framework: {
     name: "@storybook/web-components-vite",
@@ -18,3 +19,4 @@ const config = {
   },
 };
 export default config;
+

@@ -1,12 +1,11 @@
-// PaginaLogin.stories.js
 import { html } from 'lit-html';
-import '../../../src/pages/login/login.js'; // Asegúrate de ajustar la ruta a tu componente
+import '../../../src/pages/pokemonSearch/pokemonSearch.js'; // Asegúrate de ajustar la ruta al componente
 
 export default {
-  title: 'PokemonSearch/PaginaLogin',
-  component: 'pagina-login',
+  title: 'PokemonSearch/PokemonSearch',
+  component: 'pokemon-search',
 };
 
-const Template = () => html`<pagina-login></pagina-login>`;
+const Template = () => html`<pokemon-search></pokemon-search>`;
 
-export const Login = Template.bind({});
+export const Default = Template.bind({});

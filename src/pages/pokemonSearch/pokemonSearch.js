@@ -1,72 +1,66 @@
 import { LitElement, html, css } from 'lit';
-import '../../components/input-con-imagen/input-imagen.js'; // Asegúrate de ajustar la ruta al componente
+import './pokemon-detail.js'; // Asegúrate de ajustar la ruta al componente
 
-class PaginaLogin extends LitElement {
+class PokemonSearch extends LitElement {
   static styles = css`
-    .login-container {
-      display: flex;
-      flex-direction: column;
-      width: 300px;
-      margin: auto;
-      padding: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    .search-container {
+      padding: 16px;
+      text-align: center;
     }
-    input-imagen + input-imagen {
-      margin-top: 15px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .error {
-      margin-top: 20px;
-      color: red;
+    input {
+      margin-right: 8px;
     }
   `;
 
-static properties = {
-    username: { type: String },
-    password: { type: String },
-    errorMsg: { type: String }
+  static properties = {
+    pokemon: { type: Object },
+    searchQuery: { type: String },
+    errorMessage: { type: String }
+
   };
 
   constructor() {
     super();
-    this.username = '';
-    this.password = '';
-    this.errorMsg = '';
+    this.pokemon = null;
+    this.searchQuery = '';
+    this.errorMessage = '';
+
   }
 
   render() {
     return html`
-      <div class="login-container">
-        <input-imagen type="text" placeholder="Nombre de usuario" src="../../../src/components/images/usuario.png" alt="Usuario"></input-imagen>
-        <input-imagen type="password" placeholder="Contraseña" src="../../../src/components/images/asterisco.png" alt="Contraseña"></input-imagen>
-        <button @click="${this._onLogin}">Iniciar sesión</button>
-        ${this.errorMsg ? html`<div class="error">${this.errorMsg}</div>` : ''}
+      <div class="search-container">
+        <input type="text" .value="${this.searchQuery}" @input="${this._onInput}">
+        <button @click="${this._searchPokemon}">Buscar</button>
+        ${this.errorMessage ? html`<div class="error">${this.errorMessage}</div>` : ''}
+        ${this.pokemon ? html`<pokemon-detail .pokemon="${this.pokemon}"></pokemon-detail>` : ''}
       </div>
     `;
   }
+  
 
-  _onLogin() {
-    debugger;
-    if (this.username === 'guest' && this.password === 'guest') {
-        // Aquí se debería implementar la lógica para "navegar" al componente pokemon-search
-        console.log('Credenciales correctas, navegando a Pokémon Search...');
-        // Por ejemplo, puedes emitir un evento personalizado o cambiar la página de manera programática
-        this.dispatchEvent(new CustomEvent('login-success', { bubbles: true, composed: true }));
-        this.errorMsg = '';
-      } else {
-        this.errorMsg = 'Usuario/contraseña son incorrectos.';
-      }
+  _onInput(event) {
+    this.searchQuery = event.target.value;
   }
+
+  async _searchPokemon() {
+    this.errorMessage = ''; // Restablece el mensaje de error para cada nueva búsqueda
+    if (this.searchQuery) {
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.searchQuery.toLowerCase()}`);
+        if (!response.ok) {
+          throw new Error('No encontrado');
+        }
+        const data = await response.json();
+        this.pokemon = data;
+      } catch (error) {
+        console.error('Error al buscar el Pokémon:', error);
+        this.errorMessage = 'No encontrado';
+        this.pokemon = null;
+      }
+    }
+  }
+  
 }
 
-customElements.define('pagina-login', PaginaLogin);
+customElements.define('pokemon-search', PokemonSearch);
